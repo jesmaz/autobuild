@@ -1,9 +1,16 @@
     Autobuild
 
+license info:
+
+    Autobuild is relesed under the zlib license
+
 version: 0.1
 
 Autobuild is a build utility designed to simplify the build process of
 medium to large projects.
+
+Currently autobuild only supports c/c++ sources,
+eventually it will be extended to be language agnostic.
 
 
 

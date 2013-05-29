@@ -82,6 +82,8 @@ def buildSources (dest, srcDirs, incDirs):
         objArg = objArg + ' "' + f + '"'
         if os.path.isfile (output):
             build = build or os.path.getctime (f) > os.path.getctime (output)
+        else:
+            build = True
     for l in libs:
         objArg = objArg + ' "' + l + '"'
         if os.path.isfile (output):
