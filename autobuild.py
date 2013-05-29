@@ -58,16 +58,16 @@ def recmkdir (path):
     if t != "":
         os.mkdir (path)
 
-def buildSources (dest, srcDirs, incDirs):
+def buildSources ():
     sources = set ()
-    for s in srcDirs:
+    for s in src:
         sources = sources | createDirectorySet (s)
 
     pattern = re.compile (".*\\.(c(pp?|c|xx|\\+\\+)?|C(PP)?)\\Z")
     proc = []
     for f in sources:
         if pattern.match (f, 0):
-            path = os.path.dirname (os.path.join (dest, f))
+            path = os.path.dirname (os.path.join (builddir, f))
             if not os.path.exists (path):
                 recmkdir (path)
             p = multiprocessing.Process (target=buildSource, args=(f,))
@@ -78,7 +78,7 @@ def buildSources (dest, srcDirs, incDirs):
 
     objArg = ""
     build = False
-    for f in createDirectorySet (dest):
+    for f in createDirectorySet (builddir):
         objArg = objArg + ' "' + f + '"'
         if os.path.isfile (output):
             build = build or os.path.getctime (f) > os.path.getctime (output)
@@ -123,7 +123,7 @@ def main ():
         if regex.match (f, 0) and f != "autobuild.py":
             targets = True
             loadBuild (f)
-            buildSources (builddir, src, include)
+            buildSources ()
 
     if not targets:
         sys.stderr.write ("error: no build targets found\n")

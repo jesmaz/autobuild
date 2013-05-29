@@ -42,7 +42,7 @@ class config:
                 elif onrhs:
                     rhs = rhs + c
                 else:
-                    hs = lhs + c
+                    lhs = lhs + c
                 last = c
             return lhs, rhs
         def makeList (var):
